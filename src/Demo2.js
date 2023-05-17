@@ -80,28 +80,13 @@ const Main = () => {
     //   }
     // };
 
-    // async function deleteData(event, id) {
-    //     event.preventDefault();
-    //     try {
-    //         // await axios.delete(`http://127.0.0.1:8000/api/mymodels/${id}`);
-    //         await axios.delete(`http://127.0.0.1:8000/delete/${id}`);
-    //         var newInformation = infos.filter((item) => {
-    //             return item.id !== id;
-    //         });
-    //         setInfos(newInformation);
-    //     } catch (error) {
-    //         console.log("something is wrong");
-    //     }
-    // };
-
-
-    async function deleteData(event) {
+    async function deleteData(event, id) {
         event.preventDefault();
         try {
             // await axios.delete(`http://127.0.0.1:8000/api/mymodels/${id}`);
-            await axios.delete(`http://127.0.0.1:8000/delete/${updateItemId}`);
+            await axios.delete(`http://127.0.0.1:8000/delete/${id}`);
             var newInformation = infos.filter((item) => {
-                return item.id !== updateItemId;
+                return item.id !== id;
             });
             setInfos(newInformation);
         } catch (error) {
@@ -122,21 +107,20 @@ const Main = () => {
 
     // ===============================================================================================
     // Featching single data for particular id
-    useEffect(() => {
-        async function getSingleInformation() {
-            try {
-                const response = await axios.get(`http://127.0.0.1:8000/read/${updateItemId}`);
-                console.log("Data come: ", response.data);
-                setUserUpdatedData(response.data);
-            } catch (error) {
-                console.log("Something is wrong");
-                console.log("From line number: 118: ", updateItemId);
-            }
-        }
-        // Call the async function getSingleInformation
-        getSingleInformation();
+    // useEffect(() => {
+    //     async function getSingleInformation() {
+    //         try {
+    //             const response = await axios.get(`http://127.0.0.1:8000/update/${updateItemId}`);
+    //             console.log(response.data);
+    //         } catch (error) {
+    //             console.log("Something is wrong");
+    //             console.log(updateItemId);
+    //         }
+    //     }
+    //     // Call the async function getSingleInformation
+    //     getSingleInformation();
 
-    }, [updateItemId]) // it means when this particular item will change then it will render
+    // }, [updateItemId]) // it means when this particular item will change then it will render
 
     // ===============================================================================================
 
@@ -171,7 +155,6 @@ const Main = () => {
                         <div className='text-center'>
                             <h1 className="font-weight-light">Todo Project</h1>
                             <p className="lead text-muted">The Todo Project is a powerful task management application designed to help individuals stay organized and efficiently manage their daily tasks, goals, and priorities. Whether you're a student, professional, or someone who wants to enhance productivity, the Todo Project provides a user-friendly interface and intuitive features to streamline your workflow and ensure nothing falls through the cracks.</p>
-
                             {/* ========================================== ADD TODO ======================================================= */}
 
                             <button type="button" className="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#todoModal">
@@ -215,28 +198,6 @@ const Main = () => {
                             </div>
                         </div>
                         {/* ========================================== ADD TODO End ======================================================= */}
-
-                        {/* ========================================== For DELETE Conformation Start ======================================================= */}
-                        <div className="modal fade" id="todoModal3" tabIndex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-                            <div className="modal-dialog modal-dialog-centered">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                        <h1 className="modal-title fs-5" id="exampleModalLabel3">Delete Conformation Message!!</h1>
-                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-
-
-                                    <div className="modal-body">
-                                        <h4>Are you sure you want to delete it?</h4>
-                                        <button type="submit" onClick={(event) => deleteData(event)} className="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Yes</button>
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {/* ========================================== For DELETE Conformation End ======================================================= */}
 
                         {/* ========================================== UPDATE TODO Start ======================================================= */}
 
@@ -289,8 +250,8 @@ const Main = () => {
                         {
                             infos.map((info) => {
                                 return (
-                                    <div className="col" key={info.id}>
-                                        <div className="card shadow-sm">
+                                    <div className="col">
+                                        <div className="card shadow-sm" key={info.id}>
                                             <div className="card-body">
                                                 <h5 className="card-title">{info.title}</h5>
                                                 <p className="card-text">{info.description}</p>
@@ -299,11 +260,7 @@ const Main = () => {
                                                         <button type="submit" onClick={() => setUpdateItemId(info.id)} className="btn btn-sm btn-outline-success mr-2" data-bs-toggle="modal" data-bs-target="#todoModal2">Update</button>
 
 
-                                                        {/* <button type="submit" onClick={(event) => deleteData(event, info.id)} className="btn btn-sm btn-outline-danger" >Delete</button> */}
-
-                                                        <button type="submit" onClick={() => setUpdateItemId(info.id)} className="btn btn-danger btn-sm text-center" data-bs-toggle="modal" data-bs-target="#todoModal3">
-                                                            Delete
-                                                        </button>
+                                                        <button type="submit" onClick={(event) => deleteData(event, info.id)} className="btn btn-sm btn-outline-danger" >Delete</button>
                                                     </div>
 
                                                 </div>
