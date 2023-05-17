@@ -1,10 +1,8 @@
-// import logo from './logo.svg';
-// import './App.css';
+
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function App() {
-
+const Main = () => {
     // ======================================== Read Function: Fetch data from database ==============================================
     const [infos, setInfos] = useState([]);
 
@@ -146,21 +144,21 @@ function App() {
             console.log("Something is wrong");
         }
     };
-
     return (
-        <>
-            <div className="container my-5">
-                <div className="row justify-content-center">
+        <main>
 
-                    <div className="col-md-8">
-                        <h2 className="alert alert-info text-center">Todo Plan</h2>
+            <section className="py-5  container">
+                <div className="row py-lg-5">
+                    <div className="col-lg-6 col-md-8 mx-auto">
+                        <div className='text-center'>
+                            <h1 className="font-weight-light">Todo Project</h1>
+                            <p className="lead text-muted">The Todo Project is a powerful task management application designed to help individuals stay organized and efficiently manage their daily tasks, goals, and priorities. Whether you're a student, professional, or someone who wants to enhance productivity, the Todo Project provides a user-friendly interface and intuitive features to streamline your workflow and ensure nothing falls through the cracks.</p>
+                            {/* ========================================== ADD TODO ======================================================= */}
 
-
-                        {/* ========================================== ADD TODO ======================================================= */}
-
-                        <button type="button" className="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#todoModal">
-                            Add Todo
-                        </button>
+                            <button type="button" className="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#todoModal">
+                                Add Todo
+                            </button>
+                        </div>
 
                         <div className="modal fade" id="todoModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered">
@@ -198,7 +196,6 @@ function App() {
                             </div>
                         </div>
                         {/* ========================================== ADD TODO End ======================================================= */}
-                        
 
                         {/* ========================================== UPDATE TODO Start ======================================================= */}
 
@@ -238,52 +235,51 @@ function App() {
                         {/* ========================================== UPDATE TODO END ======================================================= */}
 
                     </div>
+                </div>
+            </section>
 
-                    {/* ========================================== Table Start ======================================================= */}
+            <div className="album py-5 bg-light">
+                <div className="container">
 
-                    <div className="col-md-8">
-                        <table className="table mt-4">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Todo Title</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
+                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-                            <tbody>
 
-                                {
-                                    infos.map((info) => {
-                                        return (
-                                            <tr key={info.id}>
-                                                <th scope="row">{info.id}</th>
-                                                <td>{info.title}</td>
-                                                <td>{info.description}</td>
-                                                <td>
-                                                    <a href="/" onClick={(event) => deleteData(event, info.id)} className='btn btn-danger btn-sm m-2'>Delete</a>
-                                                    <button type="submit" onClick={() => setUpdateItemId(info.id)} className="btn btn-primary btn-sm text-center" data-bs-toggle="modal" data-bs-target="#todoModal2">
-                                                        Update
-                                                    </button>
-                                                </td>
 
-                                            </tr>
+                        {
+                            infos.map((info) => {
+                                return (
+                                    <div className="col">
+                                        <div className="card shadow-sm" key={info.id}>
+                                            <div className="card-body">
+                                                <h5 className="card-title">{info.title}</h5>
+                                                <p className="card-text">{info.description}</p>
+                                                <div className="d-flex justify-content-between align-items-center">
+                                                    <div className="btn-group">
+                                                        <button type="submit" onClick={() => setUpdateItemId(info.id)} className="btn btn-sm btn-outline-success mr-2" data-bs-toggle="modal" data-bs-target="#todoModal2">Update</button>
 
-                                        )
-                                    })
-                                }
 
-                            </tbody>
-                        </table>
+                                                        <button type="submit" onClick={(event) => deleteData(event, info.id)} className="btn btn-sm btn-outline-danger">Delete</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+
+
+
+
+
+
                     </div>
-                    {/* ========================================== Table End ======================================================= */}
-
                 </div>
             </div>
-        </>
-    );
+
+        </main>
+    )
 }
 
-
-export default App;
+export default Main;
