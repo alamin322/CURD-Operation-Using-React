@@ -14,7 +14,7 @@ const UpdateData = () => {
                 console.log('error');
             }
         }
-        
+        getInformation();
     }, []);
 
     return (
