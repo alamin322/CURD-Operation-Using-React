@@ -18,6 +18,7 @@ function App() {
         console.log("Something is Wrong");
       }
     }
+    // Call the async function getAllInformation
     getAllInformation();
 
   }, []);
