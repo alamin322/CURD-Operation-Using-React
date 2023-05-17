@@ -3,6 +3,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 const Main = () => {
+    // ======================================== For Inline CSS  ==============================================
+    const myStyle = {
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '20px',
+    };
+
     // ======================================== Read Function: Fetch data from database ==============================================
     const [infos, setInfos] = useState([]);
 
@@ -79,21 +85,6 @@ const Main = () => {
     //     console.log("something is wrong");
     //   }
     // };
-
-    // async function deleteData(event, id) {
-    //     event.preventDefault();
-    //     try {
-    //         // await axios.delete(`http://127.0.0.1:8000/api/mymodels/${id}`);
-    //         await axios.delete(`http://127.0.0.1:8000/delete/${id}`);
-    //         var newInformation = infos.filter((item) => {
-    //             return item.id !== id;
-    //         });
-    //         setInfos(newInformation);
-    //     } catch (error) {
-    //         console.log("something is wrong");
-    //     }
-    // };
-
 
     async function deleteData(event) {
         event.preventDefault();
@@ -221,13 +212,13 @@ const Main = () => {
                             <div className="modal-dialog modal-dialog-centered">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h1 className="modal-title fs-5" id="exampleModalLabel3">Delete Conformation Message!!</h1>
+                                        <h1 className="modal-title fs-5 lead" id="exampleModalLabel3">Delete Conformation Message!!</h1>
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
 
                                     <div className="modal-body">
-                                        <h4>Are you sure you want to delete it?</h4>
+                                        <h3 className='' style={myStyle}>Are you sure you want to delete it?</h3><br />
                                         <button type="submit" onClick={(event) => deleteData(event)} className="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Yes</button>
                                     </div>
                                     <div className="modal-footer">
